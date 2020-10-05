@@ -134,9 +134,9 @@ function create_uniqueId() {
  */
 function convertTxt(value) {
   if (!value) return "";
-  var newAttr = document.createElement("span");
+  var newAttr = document.createElement("div");
   newAttr.innerHTML = value;
-  return newAttr.innerText;
+  return filterHtml(newAttr.innerText);
 }
 
 /**
@@ -158,7 +158,7 @@ function store_task() {
   var newId = create_uniqueId();
 
   var HTMLlayout = `
-  <div id="wxcard" data-uniqid="${newId}" data-iscomplete="false" class="wxcard">
+  <div id="wxcard" data-uniqid="${newId}" data-iscomplete="false" class="wxcard copyable-text">
       <p class="wxcard__textview">${convertTxt(store_data.text)}</p>
       <div class="wxcard__widgets">
           <div id="setIsComplete" onclick="setComplete('${newId}')" title="Complete" class="wxcard__iconview fill-green">
@@ -190,6 +190,15 @@ function store_task() {
 function filterHtml(html) {
   html = html.replace(/<style([\s\S]*?)<\/style>/gi, "");
   html = html.replace(/<script([\s\S]*?)<\/script>/gi, "");
+  html = html.replace(/<p([\s\S]*?)<\/p>/gi, "");
+  html = html.replace(/<div([\s\S]*?)<\/div>/gi, "");
+  html = html.replace(/<body([\s\S]*?)<\/body>/gi, "");
+  html = html.replace(/<span([\s\S]*?)<\/span>/gi, "");
+  html = html.replace(/<section([\s\S]*?)<\/section>/gi, "");
+  html = html.replace(/<html([\s\S]*?)<\/html>/gi, "");
+  html = html.replace(/<head([\s\S]*?)<\/head>/gi, "");
+  html = html.replace(/<ul([\s\S]*?)<\/ul>/gi, "");
+  html = html.replace(/<li([\s\S]*?)<\/li>/gi, "");
   html = html.replace(/<\/div>/gi, "\n");
   html = html.replace(/<\/li>/gi, "\n");
   html = html.replace(/<li>/gi, "  *  ");
@@ -235,7 +244,7 @@ function renderHtml() {
       var HTMLlayout = `
       <div id="wxcard" data-uniqid="${key}" data-iscomplete="${
         data.isComplete
-      }" class="wxcard">
+      }" class="wxcard copyable-text">
           <p class="wxcard__textview">${convertTxt(data.text)}</p>
           <div class="wxcard__widgets">
               <div id="setIsComplete" onclick="setComplete('${key}')" title="Complete" class="wxcard__iconview fill-green">
