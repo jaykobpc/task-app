@@ -21,6 +21,10 @@ var btnRemove = document.querySelector(".btn_remove");
 var title_task = document.querySelector(".wxcontainer__titleview--text");
 var getUniq = document.querySelectorAll("data-uniqid");
 
+//icons
+var autoRenewIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>`;
+var taskIsCompleteIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none" /><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>`;
+
 /**
  * Enable PWA Options
  */
@@ -146,7 +150,7 @@ function store_task() {
   <div id="wxcard" data-uniqid="${newId}" data-iscomplete="false" class="wxcard">
       <p class="wxcard__textview">${convertTxt(store_data.text)}</p>
       <div class="wxcard__widgets">
-          <div onclick="setComplete('${newId}')" title="Complete" class="wxcard__iconview fill-green">
+          <div id="setIsComplete" onclick="setComplete('${newId}')" title="Complete" class="wxcard__iconview fill-green">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                   <path d="M0 0h24v24H0z" fill="none" />
                   <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
@@ -218,12 +222,10 @@ function renderHtml() {
 
     if (data !== null) {
       var HTMLlayout = `
-      <div id="wxcard" data-uniqid="${key}" data-iscomplete="${
-        data.isComplete
-      }" class="wxcard">
+      <div id="wxcard" data-uniqid="${key}" data-iscomplete="${data.isComplete}" class="wxcard">
           <p class="wxcard__textview">${convertTxt(data.text)}</p>
           <div class="wxcard__widgets">
-              <div onclick="setComplete('${key}')" title="Complete" class="wxcard__iconview fill-green">
+              <div id="setIsComplete" onclick="setComplete('${key}')" title="Complete" class="wxcard__iconview fill-green">
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                       <path d="M0 0h24v24H0z" fill="none" />
                       <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
@@ -287,14 +289,27 @@ function setComplete(taskid) {
     var getId = localStorage.getItem(taskid);
     var data = JSON.parse(getId);
 
-    var new_set = {
-      text: data.text,
-      isComplete: true,
-      dtime: new Date(),
-    };
-
-    localStorage.setItem(taskid, JSON.stringify(new_set));
-    elem.classList.add("task-complete");
+    if(!data.isComplete) {
+      var new_set = {
+        text: data.text,
+        isComplete: true,
+        dtime: new Date(),
+      };
+  
+      
+      localStorage.setItem(taskid, JSON.stringify(new_set));
+      elem.classList.add("task-complete");
+    }
+    else if (data.isComplete) {
+      var new_set = {
+        text: data.text,
+        isComplete: false,
+        dtime: new Date(),
+      };
+  
+      localStorage.setItem(taskid, JSON.stringify(new_set));
+      elem.classList.remove("task-complete");
+    }
   }
 }
 
@@ -313,3 +328,4 @@ function removeTask(taskid) {
     check_list_empty();
   }
 }
+
