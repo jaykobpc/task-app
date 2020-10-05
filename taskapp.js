@@ -199,12 +199,15 @@ function filterHtml(html) {
   html = html.replace(/<head([\s\S]*?)<\/head>/gi, "");
   html = html.replace(/<ul([\s\S]*?)<\/ul>/gi, "");
   html = html.replace(/<li([\s\S]*?)<\/li>/gi, "");
-  html = html.replace(/<\/div>/gi, "\n");
-  html = html.replace(/<\/li>/gi, "\n");
+  html = html.replace(/<\/div>/gi, "");
+  html = html.replace(/<\/input>/gi, "");
+  html = html.replace("<input", "");
+  html = html.replace("<", "")
+  html = html.replace(/<\/li>/gi, "");
   html = html.replace(/<li>/gi, "  *  ");
-  html = html.replace(/<\/ul>/gi, "\n");
+  html = html.replace(/<\/ul>/gi, "");
   html = html.replace(/<\/p>/gi, "\n");
-  html = html.replace(/<br\s*[\/]?>/gi, "\n");
+  html = html.replace(/<br\s*[\/]?>/gi, "");
   html = html.replace(/<[^>]+>/gi, "");
   return html;
 }
