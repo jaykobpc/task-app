@@ -19,7 +19,6 @@ var completeTask = document.querySelector("#completeTask");
 var allElem = document.querySelectorAll("*");
 var btnRemove = document.querySelector(".btn_remove");
 var title_task = document.querySelector(".wxcontainer__titleview--text");
-var getUniq = document.querySelectorAll("data-uniqid");
 
 //icons
 var autoRenewIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>`;
@@ -32,7 +31,7 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("sw.js")
     .then((registration) => {
-      console.log("SW regsitered");
+      return true;
     })
     .catch((error) => {
       console.log("SW failed");
@@ -40,16 +39,9 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-function check_list_empty() {
-  if (window.localStorage.length <= 0) {
-    emptyListView.style.display = "block";
-    listview.style.display = "none";
-    title_task.style.visibility = "hidden";
-  } else if (window.localStorage.length >= 0) {
-    emptyListView.style.display = "none";
-    listview.style.display = "block";
-    title_task.style.visibility = "visible";
-  }
+//check if localstorage exists
+if (typeof window.localStorage == "undefined") {
+  alert("Your browser does not support [Data Storage]");
 }
 
 //preloader
@@ -63,17 +55,38 @@ window.addEventListener("DOMContentLoaded", function () {
   renderHtml();
 });
 
-//check if localstorage exists
-if (typeof window.localStorage == "undefined") {
-  alert("Your browser does not support [Data Storage]");
-}
-
 //prevent image default event selection
 document.querySelectorAll("img").forEach(function (elem) {
   elem.addEventListener("contextmenu", function (e) {
     e.preventDefault();
   });
 });
+
+/**
+ * prevent context menu from displaying on screen
+ */
+window.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+
+/**
+ * function to check if our store state is empty or not
+ * the render UI 
+ */
+
+function check_list_empty() {
+  if (window.localStorage.length <= 0) {
+    emptyListView.style.display = "block";
+    listview.style.display = "none";
+    title_task.style.visibility = "hidden";
+  } else if (window.localStorage.length >= 0) {
+    emptyListView.style.display = "none";
+    listview.style.display = "block";
+    title_task.style.visibility = "visible";
+  }
+}
+
+
 
 //show compose task modal
 composeBtn.addEventListener("click", function (e) {
