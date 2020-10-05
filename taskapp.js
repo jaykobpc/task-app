@@ -278,6 +278,10 @@ composeInputBtn.addEventListener("click", function (e) {
     return false;
   }
 
+  if(filterHtml(inputBox.value.toString()) == "") {
+    return false;
+  }
+
   check_list_empty();
   store_task();
 });
