@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#4b64f2">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="./images/logo192.png">
+    <title>Märkmeid | Notes</title>
+</head>
+
+<body translate="no" class="no-select">
+
+    <div cloak id="app">
+        <!--navbar section-->
+        <div class="navbar">
+            <div class="navbar__titleview">
+                <h3 class="navbar__titleview--text">Märkmeid</h3>
+            </div>
+            <div id="navbarIcon" title="Settings" class="navbar__iconview">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24"
+                    viewBox="0 0 24 24" width="24">
+                    <g>
+                        <path d="M0,0h24v24H0V0z" fill="none" />
+                        <path
+                            d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!--mainview section-->
+        <div class="wxcontainer">
+            <div class="wxcontainer__titleview">
+                <h3 class="wxcontainer__titleview--text">Current Tasks</h3>
+            </div>
+            <div class="wxcontainer__gridview">
+                <div class="wxcontainer__listwidgetview">
+
+                </div>
+                <div cloak class="wxcontainer__itemgridempty">
+                    <div class="wxcontainer__emptylist">
+                        <img draggable="false" src="./img/note.png" alt="Empty List"
+                            class="wxcontainer__emptylist--img">
+                        <h3 class="wxcontainer__emptylist--text">No Task Available</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--widget button Add-->
+        <div title="Compose" class="wxwidget">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+            </svg>
+        </div>
+
+        <!--modal compose-->
+        <div class="wxcompose">
+            <div class="wxcompose__closebtn">
+                <span class="wxcompose__closebtn--icon">&times;</span>
+            </div>
+            <div class="wxcompose__container">
+                <input type="text" id="inputbox" autocomplete="off" maxlength="35" pattern="([^\s][A-z0-9À-ž\s]+)"
+                    placeholder="Compose new task" class="wxcompose__container--input">
+                <div class="wxcompose__widget">
+                    <button class="wxcompose__widget--btn">Add task</button>
+                </div>
+            </div>
+        </div>
+
+        <!--settings modal-->
+        <div class="wxintent">
+            <div class="wxintent__navbar">
+                <div id="intentClose" title="Close" class="wxintent__navbar--iconview">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
+                </div>
+            </div>
+            <div class="wxintent__listview">
+                <div class="wxintent__widgetbox">
+                    <button class="wxintent__widgetbox--btn">Delete all tasks</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./taskapp.js" defer></script>
+</body>
+
+<!----
+ATTRIBUTES
+Icons made by <a href="https://www.flaticon.com/authors/darius-dan" title="Darius Dan">Darius Dan</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+2. Icons by Google Material Icons
+-->
+
+</html>
