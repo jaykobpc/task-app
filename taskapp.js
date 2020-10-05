@@ -65,13 +65,13 @@ document.querySelectorAll("img").forEach(function (elem) {
 /**
  * prevent context menu from displaying on screen
  */
-window.addEventListener("contextmenu", function(e) {
+window.addEventListener("contextmenu", function (e) {
   e.preventDefault();
 });
 
 /**
  * function to check if our store state is empty or not
- * the render UI 
+ * the render UI
  */
 
 function check_list_empty() {
@@ -85,8 +85,6 @@ function check_list_empty() {
     title_task.style.visibility = "visible";
   }
 }
-
-
 
 //show compose task modal
 composeBtn.addEventListener("click", function (e) {
@@ -235,7 +233,9 @@ function renderHtml() {
 
     if (data !== null) {
       var HTMLlayout = `
-      <div id="wxcard" data-uniqid="${key}" data-iscomplete="${data.isComplete}" class="wxcard">
+      <div id="wxcard" data-uniqid="${key}" data-iscomplete="${
+        data.isComplete
+      }" class="wxcard">
           <p class="wxcard__textview">${convertTxt(data.text)}</p>
           <div class="wxcard__widgets">
               <div id="setIsComplete" onclick="setComplete('${key}')" title="Complete" class="wxcard__iconview fill-green">
@@ -266,19 +266,15 @@ function renderHtml() {
 composeInputBtn.addEventListener("click", function (e) {
   e.preventDefault();
 
-  if (inputBox.value.toString() == null) {
+  if (filterHtml(inputBox.value.toString()) == null) {
     return false;
   }
 
-  if (inputBox.value.toString() == "") {
+  if (filterHtml(inputBox.value.toString()) == undefined) {
     return false;
   }
 
-  if (inputBox.value.toString() == undefined) {
-    return false;
-  }
-
-  if(filterHtml(inputBox.value.toString()) == "") {
+  if (filterHtml(inputBox.value.toString()) == "") {
     return false;
   }
 
@@ -306,24 +302,22 @@ function setComplete(taskid) {
     var getId = localStorage.getItem(taskid);
     var data = JSON.parse(getId);
 
-    if(!data.isComplete) {
+    if (!data.isComplete) {
       var new_set = {
         text: data.text,
         isComplete: true,
         dtime: new Date(),
       };
-  
-      
+
       localStorage.setItem(taskid, JSON.stringify(new_set));
       elem.classList.add("task-complete");
-    }
-    else if (data.isComplete) {
+    } else if (data.isComplete) {
       var new_set = {
         text: data.text,
         isComplete: false,
         dtime: new Date(),
       };
-  
+
       localStorage.setItem(taskid, JSON.stringify(new_set));
       elem.classList.remove("task-complete");
     }
@@ -345,4 +339,3 @@ function removeTask(taskid) {
     check_list_empty();
   }
 }
-
