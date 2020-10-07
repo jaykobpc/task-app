@@ -4,6 +4,9 @@
   --color-white: #fff;
   --color-grey: #757575;
   --color-red: #e53935;
+  --dark-100: #000;
+  --dark-200: #111;
+  --dark-300: #333;
 }
 
 *,
@@ -33,6 +36,11 @@ body {
 img {
   display: block;
   width: 100%;
+}
+
+.preload * {
+  display: none;
+  transition: none;
 }
 
 .no-select {
@@ -211,6 +219,7 @@ img {
   background-color: var(--color-white);
   z-index: 9999;
   transition: opacity 0.3s;
+  cursor: pointer;
 }
 
 .compose_open.wxcompose {
@@ -369,4 +378,30 @@ img {
 
 [cloak] {
   display: none;
+}
+
+
+.snackbar {
+  position: fixed;
+  bottom: -100px;
+  width: 100%;
+  padding: 1.3rem 0.5rem;
+  background-color: var(--dark-300);
+  text-align: center;
+  visibility: hidden;
+  transition: bottom 0.4s;
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.15);
+}
+
+.snackbar__text {
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--color-white);
+}
+
+.snack_open.snackbar {
+  bottom: 0;
+  visibility: visible;
+  transition: bottom 0.4s;
 }

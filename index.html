@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#4b64f2">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-    <link href="./style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="./images/logo192.png">
     <title>Märkmeid | Notes</title>
 </head>
 
-<body translate="no" class="no-select">
+<body translate="no" class="no-select preload">
 
     <div cloak id="app">
         <!--navbar section-->
@@ -89,6 +89,10 @@
                     <button class="wxintent__widgetbox--btn">Delete all tasks</button>
                 </div>
             </div>
+        </div>
+
+        <div class="snackbar">
+            <p class="snackbar__text">Task has been deleted</p>
         </div>
     </div>
 

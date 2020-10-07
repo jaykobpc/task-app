@@ -15,6 +15,7 @@ var emptyListView = document.querySelector(".wxcontainer__itemgridempty");
 var WxCard = document.querySelector(".wxcard");
 var btnRemoveAll = document.querySelector(".wxintent__widgetbox--btn");
 var completeTask = document.querySelector("#completeTask");
+var snackContainer = document.querySelector(".snackbar");
 
 var allElem = document.querySelectorAll("*");
 var btnRemove = document.querySelector(".btn_remove");
@@ -39,18 +40,26 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-//check if localstorage exists
+//check if localstorage and cookies supported exists
 if (typeof window.localStorage == "undefined") {
   alert("Your browser does not support [Data Storage]");
 }
 
+if (typeof window.document.cookie == "undefined") {
+  alert("Your browser [Cookies] have been disabled");
+}
+
 //preloader
 window.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.remove("preload");
+
   allElem.forEach(function (elem) {
     if (elem.hasAttribute("cloak")) {
       elem.removeAttribute("cloak");
     }
   });
+
+  //call functions to execute
   check_list_empty();
   renderHtml();
 });
@@ -202,7 +211,7 @@ function filterHtml(html) {
   html = html.replace(/<\/div>/gi, "");
   html = html.replace(/<\/input>/gi, "");
   html = html.replace("<input", "");
-  html = html.replace("<", "")
+  html = html.replace("<", "");
   html = html.replace(/<\/li>/gi, "");
   html = html.replace(/<li>/gi, "  *  ");
   html = html.replace(/<\/ul>/gi, "");
@@ -349,5 +358,19 @@ function removeTask(taskid) {
     localStorage.removeItem(taskid);
     //
     check_list_empty();
+    Snackbar();
+  }
+}
+
+/**
+ * display snack message
+ */
+function Snackbar(message) {
+  if (snackContainer) {
+    snackContainer.classList.add("snack_open");
+    //remove after few milliseconds
+    setTimeout(function () {
+      snackContainer.classList.remove("snack_open");
+    }, 2000);
   }
 }
