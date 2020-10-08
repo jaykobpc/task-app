@@ -358,19 +358,12 @@ function removeTask(taskid) {
     localStorage.removeItem(taskid);
     //
     check_list_empty();
-    Snackbar();
-  }
-}
-
-/**
- * display snack message
- */
-function Snackbar(message) {
-  if (snackContainer) {
-    snackContainer.classList.add("snack_open");
-    //remove after few milliseconds
-    setTimeout(function () {
-      snackContainer.classList.remove("snack_open");
-    }, 2000);
+    new KtToaster({
+      duration: 4000,
+      text: "Task has been removed",
+      textFontSize: 15,
+      textFontWeight: 400,
+      allowTextCopy: false,
+    });
   }
 }
