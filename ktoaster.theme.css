@@ -9,6 +9,7 @@
   box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.15);
   transition: all 0.4s;
   outline: none;
+  z-index: 9999;
 }
 
 .toast_text {
