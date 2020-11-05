@@ -170,13 +170,13 @@ function store_task() {
   <div id="wxcard" data-uniqid="${newId}" data-iscomplete="false" class="wxcard copyable-text">
       <p class="wxcard__textview">${convertTxt(store_data.text)}</p>
       <div class="wxcard__widgets">
-          <div id="setIsComplete" onclick="setComplete('${newId}')" title="Complete" class="wxcard__iconview fill-green">
+          <div id="setIsComplete" onclick="setComplete('${newId}')" title="Complete" class="wxcard__iconview fill-green green-theme">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                   <path d="M0 0h24v24H0z" fill="none" />
                   <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
               </svg>
           </div>
-          <div onClick="removeTask('${newId}')"  title="Delete" class="wxcard__iconview fill-red">
+          <div onClick="removeTask('${newId}')"  title="Delete" class="wxcard__iconview fill-red red-theme">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                   <path d="M0 0h24v24H0z" fill="none" />
                   <path
@@ -259,13 +259,13 @@ function renderHtml() {
       }" class="wxcard copyable-text">
           <p class="wxcard__textview">${convertTxt(data.text)}</p>
           <div class="wxcard__widgets">
-              <div id="setIsComplete" onclick="setComplete('${key}')" title="Complete" class="wxcard__iconview fill-green">
+              <div id="setIsComplete" onclick="setComplete('${key}')" title="Complete" class="wxcard__iconview fill-green green-theme">
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                       <path d="M0 0h24v24H0z" fill="none" />
                       <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
                   </svg>
               </div>
-              <div onClick="removeTask('${key}')" title="Delete" class="wxcard__iconview remove_task fill-red">
+              <div onClick="removeTask('${key}')" title="Delete" class="wxcard__iconview remove_task fill-red red-theme">
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                       <path d="M0 0h24v24H0z" fill="none" />
                       <path

@@ -4,6 +4,8 @@
   --color-white: #fff;
   --color-grey: #757575;
   --color-red: #e53935;
+  --color-red-100: #ffcdd2;
+  --color-green-100: #C8E6C9;
   --dark-100: #000;
   --dark-200: #111;
   --dark-300: #333;
@@ -188,10 +190,6 @@ img {
   margin: 0rem 0.2rem;
   transition: all 0.3s;
   background-color: var(--color-white);
-}
-
-.wxcard__iconview:hover {
-  background-color: #dde;
 }
 
 .fill-red {
@@ -379,4 +377,20 @@ img {
 
 [cloak] {
   display: none;
+}
+
+.red-theme {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.red-theme:hover {
+  background-color: var(--color-red-100);
+}
+
+.green-theme {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.green-theme:hover {
+  background-color: var(--color-green-100);
 }
