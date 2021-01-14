@@ -42,11 +42,7 @@ if ("serviceWorker" in navigator) {
 
 //check if localstorage and cookies supported exists
 if (typeof window.localStorage == "undefined") {
-  alert("Your browser does not support [Data Storage]");
-}
-
-if (typeof window.document.cookie == "undefined") {
-  alert("Your browser [Cookies] have been disabled");
+  console.log("Your browser does not support [Data Storage]");
 }
 
 //preloader
@@ -142,17 +138,19 @@ function create_uniqueId() {
  * convert remove html tags before rendering to DOM
  */
 function convertTxt(value) {
-  if (!value) return "";
-  var newAttr = document.createElement("div");
+  if (!value) return false;
+  var newAttr = document.createElement("span");
   newAttr.innerHTML = value;
-  return filterHtml(newAttr.innerText);
+  return filterHtml(newAttr.innerText.toString().trim());
 }
 
 /**
  * function to append new task to store and DOM
  */
-function store_task() {
-  var input_text = inputBox.value;
+function store_task(textInputValue) {
+  if(!textInputValue) return false;
+
+  var input_text = textInputValue;
 
   if (input_text == null) {
     return false;
@@ -168,7 +166,7 @@ function store_task() {
 
   var HTMLlayout = `
   <div id="wxcard" data-uniqid="${newId}" data-iscomplete="false" class="wxcard copyable-text">
-      <p class="wxcard__textview">${convertTxt(store_data.text)}</p>
+      <p class="wxcard__textview">${convertTxt(store_data.text.toString().trim())}</p>
       <div class="wxcard__widgets">
           <div id="setIsComplete" onclick="setComplete('${newId}')" title="Complete" class="wxcard__iconview fill-green green-theme">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
@@ -197,6 +195,7 @@ function store_task() {
 }
 
 function filterHtml(html) {
+  html = html.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   html = html.replace(/<style([\s\S]*?)<\/style>/gi, "");
   html = html.replace(/<script([\s\S]*?)<\/script>/gi, "");
   html = html.replace(/<p([\s\S]*?)<\/p>/gi, "");
@@ -210,7 +209,7 @@ function filterHtml(html) {
   html = html.replace(/<li([\s\S]*?)<\/li>/gi, "");
   html = html.replace(/<\/div>/gi, "");
   html = html.replace(/<\/input>/gi, "");
-  html = html.replace("<input", "");
+  html = html.replace("<input", " ");
   html = html.replace("<", "");
   html = html.replace(/<\/li>/gi, "");
   html = html.replace(/<li>/gi, "  *  ");
@@ -287,20 +286,26 @@ function renderHtml() {
 composeInputBtn.addEventListener("click", function (e) {
   e.preventDefault();
 
-  if (filterHtml(inputBox.value.toString()) == null) {
+  const textValue = inputBox.value.toString().trim();
+
+  if (filterHtml(textValue) == null) {
     return false;
   }
 
-  if (filterHtml(inputBox.value.toString()) == undefined) {
+  if (typeof filterHtml(textValue) == "undefined") {
     return false;
   }
 
-  if (filterHtml(inputBox.value.toString()) == "") {
+  if (filterHtml(textValue) == "") {
+    return false;
+  }
+
+  if (filterHtml(textValue) == " ") {
     return false;
   }
 
   check_list_empty();
-  store_task();
+  store_task(textValue);
 });
 
 /**
