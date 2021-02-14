@@ -358,10 +358,11 @@ function removeTask(taskid) {
   if (taskid) {
     var elem = document.querySelector(`[data-uniqid='${taskid}']`);
     elem.style.transform = "translateX(-1000px)";
-    elem.style.transition = "transform 0.4s";
+    elem.style.transition = "transform 0.4s ease-in-out";
     elem.parentNode.removeChild(elem);
     localStorage.removeItem(taskid);
-    //
+    
+    //set checklist to empty
     check_list_empty();
     new KtToaster({
       duration: 4000,
